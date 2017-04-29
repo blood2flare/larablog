@@ -11,12 +11,7 @@
 |
 */
 
-Route::get('/about', function () {
-    return view('pages.about');
-});
-Route::get('/contact', function () {
-    return view('pages.contact');
-});
-Route::get('/', function () {
-    return view('pages.welcome');
-});
+Route::get('/about', 'PagesController@getAbout');
+Route::get('/contact', 'PagesController@getContact');
+Route::get('/', 'PagesController@getIndex');
+Route::resource('posts', 'PostController');
