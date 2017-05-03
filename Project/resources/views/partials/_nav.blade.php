@@ -17,6 +17,7 @@
         <li class="{{ request()->is('/') ? "active" : "" }}"><a href="/">Home <span class="sr-only">(current)</span></a></li>
         <li class="{{ request()->is('about') ? "active" : "" }}"><a href="/about">About</a></li>
         <li class="{{ request()->is('contact') ? "active" : "" }}"><a href="/contact">Contact</a></li>
+        <li class="{{ request()->is('posts') ? "active" : "" }}"><a href="/posts">Posts</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
