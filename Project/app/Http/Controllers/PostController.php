@@ -88,7 +88,19 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, array(
+            'title' => 'required|max:255',
+            'body'  => 'required'
+        ));
+
+        $post = Post::find($id);
+        $post->title = $request->input('title');
+        $post->body = $request->input('body');
+        $post->save();
+
+        Session::flash('success', 'The changes was successfully saved.');
+
+        return redirect()->route('posts.show', $post->id);
     }
 
     /**
@@ -99,6 +111,10 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+        $post->delete();
+
+        Session::flash('success', 'The post was successfully deleted');
+        return redirect()->route('posts.index');
     }
 }

@@ -7,7 +7,7 @@
 
 @section('content')
   <div class="row">
-    {!! Form::model($post, ['route' => ['posts.update', $post->id]]) !!}
+    {!! Form::model($post, ['route' => ['posts.update', $post->id], 'method' => 'PUT']) !!}
     <div class="col-md-8">
       {{ Form::label('title', 'Title:') }}
       {{ Form::text('title', null, ['class' => 'form-control input-lg']) }}
