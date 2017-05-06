@@ -15,7 +15,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        //$posts = Post::all();
+        $posts = Post::orderBy('id', 'desc')->paginate(5);
         return view('posts.index')->with('posts', $posts);
     }
 
@@ -47,6 +48,8 @@ class PostController extends Controller
         $post = new Post;
         $post->title = $request->title;
         $post->body = $request->body;
+        //$post->slug = $request->slug;
+        $post->slug = $this->slugify($request->title);
         $post->save();
 
         Session::flash('success', 'The blog post was successfully saved!');
@@ -90,12 +93,14 @@ class PostController extends Controller
     {
         $this->validate($request, array(
             'title' => 'required|max:255',
-            'body'  => 'required'
+            'body'  => 'required',
+            'slug'  => 'required|alpha_dash|min:5|max:255|unique:posts,slug'
         ));
 
         $post = Post::find($id);
         $post->title = $request->input('title');
         $post->body = $request->input('body');
+        $post->slug = $request->input('slug');
         $post->save();
 
         Session::flash('success', 'The changes was successfully saved.');
@@ -116,5 +121,25 @@ class PostController extends Controller
 
         Session::flash('success', 'The post was successfully deleted');
         return redirect()->route('posts.index');
+    }
+
+    static public function slugify($text) {
+        // replace non letter or digits by -
+        $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+        // transliterate
+        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+        // remove unwanted characters
+        $text = preg_replace('~[^-\w]+~', '', $text);
+        // trim
+        $text = trim($text, '-');
+        // remove duplicate -
+        $text = preg_replace('~-+~', '-', $text);
+        // lowercase
+        $text = strtolower($text);
+
+        if (empty($text)) {
+            return 'n-a';
+        }
+        return $text;
     }
 }

@@ -6,7 +6,7 @@
   <div class="row">
     <div class="col-md-12">
       <h1>About Me</h1>
-      <p>That's about it</p>
+      <p>My name is {{ $data['fullname'] }}</p>
     </div>
   </div>
 @endsection

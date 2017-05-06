@@ -19,6 +19,9 @@
         {{ Form::label('body', 'Post Body:') }}
         {{ Form::textarea('body', null, ['class' => 'form-control', 'required' => '']) }}
 
+        {{ Form::label('slug', 'Slug:') }}
+        {{ Form::text('slug', null, ['class' => 'form-control', 'min-length' => '5', 'max-length' => '255']) }}
+
         {{ Form::submit('Create New Post', ['class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top: 20px;']) }}
       {!! Form::close() !!}
     </div>
