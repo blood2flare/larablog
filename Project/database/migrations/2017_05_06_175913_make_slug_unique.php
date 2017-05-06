@@ -13,7 +13,9 @@ class MakeSlugUnique extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('posts', function($table) {
+            $table->unique('slug');
+        });
     }
 
     /**
@@ -23,6 +25,8 @@ class MakeSlugUnique extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('posts', function($table) {
+            $table->dropUnique('slug');
+        });
     }
 }
