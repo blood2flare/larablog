@@ -18,7 +18,7 @@
         <div class="post">
           <h2>{{ $post->title }}</h2>
           <p>{{ (strlen($post->body) > 300) ? substr($post->body, 0, 300)."..." : $post->body }}</p>
-          <a href="#" class="btn btn-primary btn-lg" role="button">Read more</a>
+          <a href="{{ route('blog.single', $post->slug) }}" class="btn btn-primary btn-lg" role="button">Read more</a>
         </div>
         <hr>
       @endforeach
