@@ -11,6 +11,8 @@ folders:
 sites:
     - map: homestead.app
       to: /home/vagrant/Code/Project/public
+    - map: nslj.app
+      to: /home/vagrant/Code/nslj/public
 
 databases:
     - homestead
