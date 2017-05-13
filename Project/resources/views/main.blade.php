@@ -8,6 +8,7 @@
   <body>
     @include('partials._nav')
     <div class="container">
+      Remember: {{ Auth::viaRemember() }}
       @include('partials._messages')
 
       @yield('content')

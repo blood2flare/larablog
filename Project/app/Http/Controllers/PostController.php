@@ -8,6 +8,12 @@ Use Session;
 
 class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -39,11 +45,15 @@ class PostController extends Controller
     public function store(Request $request)
     {
         // validate the data
+        
+        
         $this->validate($request, array(
             'title' => 'required|max:255',
-            'body'  => 'required'
+            'body'  => 'required',
+            'slug'  => 'unique:posts,slug'
         ));
-
+        
+        /*
         // store in the database
         $post = new Post;
         $post->title = $request->title;
@@ -51,6 +61,13 @@ class PostController extends Controller
         //$post->slug = $request->slug;
         $post->slug = $this->slugify($request->title);
         $post->save();
+        */
+
+        $post = Post::create([
+            'title' => request('title'),
+            'body'  => request('body'),
+            'slug'  => request('slug')
+        ]);
 
         Session::flash('success', 'The blog post was successfully saved!');
 

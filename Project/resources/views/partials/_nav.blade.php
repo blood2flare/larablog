@@ -21,13 +21,19 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::check() ? Auth::user()->name : 'My Account' }}<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="{{ route('posts.index') }}">Posts</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Logout</a></li>
+            @if (Auth::check())
+              <li><a href="{{ route('posts.index') }}">Posts</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
+                {!! Form::open(['id' => 'logout-form', 'url' => route('logout'), 'method' => 'POST', 'style' => 'display:none']) !!}
+                {!! Form::close() !!}
+            @else
+              <li><a href="{{ route('login') }}">Login</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="{{ route('register') }}">Register</a></li>
+            @endif
           </ul>
         </li>
       </ul>

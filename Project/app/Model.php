@@ -1,10 +1,12 @@
 <?php
 
+// This is custom Model extending Eloquent model to bypass MassAssignment rules
+
 namespace App;
 
-//use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Post extends Model
+class Model extends Eloquent
 {
     //protected $fillable = ['title', 'body'];
     //protected $guarded = ['id', 'created_at', 'updated_at'];
